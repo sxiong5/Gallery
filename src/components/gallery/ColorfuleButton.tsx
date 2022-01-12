@@ -1,5 +1,6 @@
 import { Box, styled } from '@mui/material';
 import React, { useEffect } from 'react';
+import { GalleryChildrenProps } from '../../@types/gallery';
 
 const style = `
 * {
@@ -66,12 +67,16 @@ const style = `
 `;
 
 const Container = styled(Box)`
-	${style}
+	${style};
+	width: 100vw;
+	position: relative;
 `;
 
-const ColorfuleButton = () => {
+const ColorfuleButton = ({ setHtml, setCss }: GalleryChildrenProps) => {
 	useEffect(() => {
-		console.log(document.getElementById('colorful-btn')?.innerHTML);
+		const html = document.getElementById('colorful-btn')?.innerHTML;
+		setHtml(html);
+		setCss(style);
 	}, []);
 
 	return (

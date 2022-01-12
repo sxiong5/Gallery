@@ -1,11 +1,25 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
-import { Box, styled } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, IconButton, styled, Tooltip } from '@mui/material';
 import showdown from 'showdown';
 import 'highlight.js/styles/night-owl.css';
 import showdownHighlight from 'showdown-highlight';
+import CodeIcon from '@mui/icons-material/Code';
+import CodeOffIcon from '@mui/icons-material/CodeOff';
+
+interface GalleryCardProps {
+	children: JSX.Element | JSX.Element[];
+	html: string;
+	css: string;
+	codeVisible: boolean;
+	setCodeVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const GalleryCardWrapper = styled(Box)`
+	width: 100vw;
+	min-height: 100vh;
+`;
 
 const CodeContainer = styled(Box)`
-	position: absolute;
 	color: #fff;
 	font-size: 1rem;
 `;
@@ -16,45 +30,49 @@ const Code = styled(Box)`
 		overflow-y: auto;
 	}
 	& .hljs {
-		background: transparent;
 	}
 `;
 
-const GalleryCard = () => {
-	const iframeRef = useRef<HTMLIFrameElement>() as React.MutableRefObject<HTMLIFrameElement>;
-	const [html, setHtml] = useState<string>('');
-	const [css, setCss] = useState<string>('');
+const CodeButtonWrapper = styled(IconButton)(({ theme }) => ({
+	position: 'fixed',
+	bottom: '30px',
+	right: '30px',
+	zIndex: theme.zIndex.tooltip
+}));
+
+const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisible, setCodeVisible }) => {
+	const [htmlCode, setHtmlCode] = useState<string>('');
+	const [cssCode, setCssCode] = useState<string>('');
 	const converter = new showdown.Converter({ extensions: [showdownHighlight({ pre: true })] });
 
-	const getCode = () => {
-		const { current } = iframeRef;
-		const doc = current?.contentWindow?.document;
+	useEffect(() => {
+		// setCodeVisible(false);
 
-		console.log(doc?.documentElement.innerHTML!);
+		setHtmlCode(converter.makeHtml(html));
+		setCssCode(converter.makeHtml(css));
+	}, [children, html, css]);
 
-		let [_, styleCode, htmlCode] = doc?.documentElement.innerHTML!.match(
-			/<style>([\s\S]*)<\/style>[\s\S]*<body .*>([\s\S]*)<\/body>/
-		) as RegExpMatchArray;
-
-		setCss(converter.makeHtml(styleCode));
-		setHtml(converter.makeHtml(htmlCode));
+	const a = () => {
+		console.log(codeVisible);
+		setCodeVisible(!codeVisible);
 	};
 
-	useEffect(() => {
-		const { current } = iframeRef;
-		current?.contentWindow?.addEventListener('click', getCode);
-		return () => current?.contentWindow?.removeEventListener('click', getCode);
-	}, []);
-
 	return (
-		<Box sx={{ width: '100vw', height: '100vh', overflow: 'hidden' }} onClick={getCode}>
-			<CodeContainer>
-				<Code dangerouslySetInnerHTML={{ __html: html }}></Code>
-				<Code dangerouslySetInnerHTML={{ __html: css }}></Code>
-			</CodeContainer>
-			<iframe ref={iframeRef} src='/demo/1.html' frameBorder='0' height='100%' width='100%'></iframe>
-		</Box>
+		<GalleryCardWrapper>
+			{children}
+			{codeVisible ? (
+				<CodeContainer className='code-container'>
+					<Code dangerouslySetInnerHTML={{ __html: htmlCode }}></Code>
+					<Code dangerouslySetInnerHTML={{ __html: cssCode }}></Code>
+				</CodeContainer>
+			) : null}
+			<Tooltip title='Code' placement='left'>
+				<CodeButtonWrapper color='primary' onClick={a}>
+					{codeVisible ? <CodeOffIcon /> : <CodeIcon />}
+				</CodeButtonWrapper>
+			</Tooltip>
+		</GalleryCardWrapper>
 	);
 };
 
-export default forwardRef(GalleryCard);
+export default GalleryCard;
