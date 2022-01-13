@@ -5,10 +5,3 @@ export interface GalleryChildrenProps extends RouteComponentProps {
 	setCss: Function;
 	className?: string;
 }
-
-declare module 'react' {
-	interface SVGProps<SVGSVGElement> {
-		// For theme-ui
-		xmlnsSvgjs: string;
-	}
-}

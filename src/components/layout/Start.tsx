@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
-import { color } from '@mui/system';
+import routes from '../../routes';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 const StarWrapper = styled(Box)(() => ({
 	position: 'relative',
@@ -63,17 +64,24 @@ const Instruction = styled(Typography)(({ theme }) => ({
 	}
 }));
 
-const Start = () => (
-	<>
-		<StarWrapper className='start'>
-			<StartTitle className='up'>Gallery</StartTitle>
-			<StartTitle className='down'>Gallery</StartTitle>
-			<StartButton className='btn' variant='outlined' sx={{ borderRadius: '50px' }}>
-				Click to Start
-			</StartButton>
-		</StarWrapper>
-		<Instruction variant='h5'>A Gallery from some intresting components</Instruction>
-	</>
-);
+const Start: React.FC<RouteComponentProps> = ({ history }) => {
+	const toDemo = () => {
+		const { path } = routes[0];
+		history.push(path);
+	};
 
-export default Start;
+	return (
+		<>
+			<StarWrapper className='start'>
+				<StartTitle className='up'>Gallery</StartTitle>
+				<StartTitle className='down'>Gallery</StartTitle>
+				<StartButton className='btn' variant='outlined' sx={{ borderRadius: '50px' }} onClick={toDemo}>
+					Click to Start
+				</StartButton>
+			</StarWrapper>
+			<Instruction variant='h5'>A Gallery from some intresting components</Instruction>
+		</>
+	);
+};
+
+export default withRouter(Start);

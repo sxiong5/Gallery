@@ -8,7 +8,6 @@ const Background = () => {
 				xmlns='http://www.w3.org/2000/svg'
 				version='1.1'
 				xmlnsXlink='http://www.w3.org/1999/xlink'
-				xmlnssvgjs='http://svgjs.com/svgjs'
 				width='100%'
 				preserveAspectRatio='none'
 				viewBox='0 0 1440 560'
