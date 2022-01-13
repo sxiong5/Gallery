@@ -46,16 +46,11 @@ const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisi
 	const converter = new showdown.Converter({ extensions: [showdownHighlight({ pre: true })] });
 
 	useEffect(() => {
-		// setCodeVisible(false);
+		setCodeVisible(false);
 
 		setHtmlCode(converter.makeHtml(html));
 		setCssCode(converter.makeHtml(css));
-	}, [children, html, css]);
-
-	const a = () => {
-		console.log(codeVisible);
-		setCodeVisible(!codeVisible);
-	};
+	}, [html, css]);
 
 	return (
 		<GalleryCardWrapper>
@@ -67,7 +62,7 @@ const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisi
 				</CodeContainer>
 			) : null}
 			<Tooltip title='Code' placement='left'>
-				<CodeButtonWrapper color='primary' onClick={a}>
+				<CodeButtonWrapper color='primary' onClick={() => setCodeVisible(!codeVisible)}>
 					{codeVisible ? <CodeOffIcon /> : <CodeIcon />}
 				</CodeButtonWrapper>
 			</Tooltip>

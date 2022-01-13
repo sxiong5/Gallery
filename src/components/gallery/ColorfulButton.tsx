@@ -1,6 +1,8 @@
 import { Box, styled } from '@mui/material';
 import React, { useEffect } from 'react';
 import { GalleryChildrenProps } from '../../@types/gallery';
+import { formatCss, formatHtml } from '../../utils';
+import container from '../Container';
 
 const style = `
 * {
@@ -66,21 +68,17 @@ const style = `
 }
 `;
 
-const Container = styled(Box)`
-	${style};
-	width: 100vw;
-	position: relative;
-`;
+const Container = container(style);
 
-const ColorfuleButton = ({ setHtml, setCss }: GalleryChildrenProps) => {
+const ColorfulButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
 	useEffect(() => {
 		const html = document.getElementById('colorful-btn')?.innerHTML;
-		setHtml(html);
-		setCss(style);
+		setHtml(formatHtml(html!));
+		setCss(formatCss(style));
 	}, []);
 
 	return (
-		<Container id='colorful-btn'>
+		<Container className={`gallery-demo ${className ?? ''}`} id='colorful-btn'>
 			<div className='colorful-btn__container'>
 				{Array(5)
 					.fill(null)
@@ -94,4 +92,4 @@ const ColorfuleButton = ({ setHtml, setCss }: GalleryChildrenProps) => {
 	);
 };
 
-export default ColorfuleButton;
+export default ColorfulButton;

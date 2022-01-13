@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Box, styled } from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -7,6 +7,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { GalleryChildrenProps } from '../../@types/gallery';
 import { formatCss, formatHtml } from '../../utils';
+import container from '../Container';
 
 const style = `
 * {
@@ -84,14 +85,9 @@ const style = `
 }
 `;
 
-const Container = styled(Box)`
-	${style}
-	width: 100vw;
-	position: relative;
-`;
+const Container = container(style);
 
 const MirrorButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
-	const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
 	const icons = [
 		<TwitterIcon fontSize='large' />,
 		<FacebookIcon fontSize='large' />,
@@ -107,7 +103,7 @@ const MirrorButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classNa
 	}, []);
 
 	return (
-		<Container className={`gallery-demo ${className ?? ''}`} id='mirror-btn' ref={ref}>
+		<Container className={`gallery-demo ${className ?? ''}`} id='mirror-btn'>
 			<div className='mirror-btn__container'>
 				<ul>
 					{icons.map((item, index) => (
