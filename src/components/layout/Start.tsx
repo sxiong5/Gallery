@@ -2,6 +2,9 @@ import React from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
 import routes from '../../routes';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { HomeProps } from './Home';
+
+interface StartProps extends RouteComponentProps, HomeProps {}
 
 const StarWrapper = styled(Box)(() => ({
 	position: 'relative',
@@ -64,9 +67,9 @@ const Instruction = styled(Typography)(({ theme }) => ({
 	}
 }));
 
-const Start: React.FC<RouteComponentProps> = ({ history }) => {
+const Start: React.FC<StartProps> = ({ history, demoIndex }) => {
 	const toDemo = () => {
-		const { path } = routes[0];
+		const { path } = routes[demoIndex];
 		history.push(path);
 	};
 

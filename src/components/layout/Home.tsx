@@ -1,9 +1,13 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import Background from './Background';
 import Start from './Start';
 
-const Home = () => {
+export interface HomeProps {
+	demoIndex: number;
+}
+
+const Home: React.FC<HomeProps> = ({ demoIndex }) => {
 	return (
 		<Box
 			sx={{
@@ -18,7 +22,7 @@ const Home = () => {
 			}}
 		>
 			<Background />
-			<Start />
+			<Start demoIndex={demoIndex} />
 		</Box>
 	);
 };
