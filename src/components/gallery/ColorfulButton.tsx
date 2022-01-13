@@ -16,7 +16,7 @@ const style = `
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background: radial-gradient(circle at center, #555, #000);
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 .colorful-btn__container a {
   position: relative;

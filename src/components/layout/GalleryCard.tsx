@@ -7,7 +7,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import CodeOffIcon from '@mui/icons-material/CodeOff';
 
 interface GalleryCardProps {
-	children: JSX.Element | JSX.Element[];
+	children: any;
 	html: string;
 	css: string;
 	codeVisible: boolean;
