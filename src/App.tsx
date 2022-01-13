@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, RouteProps } from 'react-router-dom';
-import { GalleryChildrenProps } from './@types/gallery';
-import './App.css';
-import ColorfuleButton from './components/gallery/ColorfuleButton';
-import MirrorButton from './components/gallery/MirrorButton';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GalleryCard from './components/layout/GalleryCard';
+import routes from './routes';
+import './App.css';
 
 function App() {
 	const [codeVisible, setCodeVisible] = useState<boolean>(false);
@@ -16,18 +14,20 @@ function App() {
 			<Router>
 				<Switch>
 					<GalleryCard html={html} css={css} codeVisible={codeVisible} setCodeVisible={setCodeVisible}>
-						<Route
-							exact
-							path='/'
-							render={props => (
-								<MirrorButton
-									setHtml={setHtml}
-									setCss={setCss}
-									className={codeVisible ? 'show-code' : undefined}
-									{...props}
-								/>
-							)}
-						/>
+						{routes.map((route, index) => (
+							<Route
+								key={index}
+								path={route.path}
+								render={props => (
+									<route.component
+										setHtml={setHtml}
+										setCss={setCss}
+										className={codeVisible ? 'show-code' : undefined}
+										{...props}
+									/>
+								)}
+							/>
+						))}
 					</GalleryCard>
 				</Switch>
 			</Router>

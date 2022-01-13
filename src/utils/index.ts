@@ -34,3 +34,8 @@ const addTab = (num: number): string => {
 export const formatCss = (css: string): string => {
 	return `\`\`\`css${css}\`\`\``;
 };
+
+export const toKebabCase = (pascalCase: string) => {
+	const words = pascalCase.replace(/([a-z](?=[A-Z]))/g, '$1 ').split(' ');
+	return words.map(item => item.toLocaleLowerCase()).join('-');
+};
