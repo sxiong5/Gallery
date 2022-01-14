@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Switch, Route, withRouter, RouteComponentProps, useLocation } from 'react-router-dom';
+import { Switch, Route, withRouter, RouteComponentProps, useLocation, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import GalleryCard from './components/layout/GalleryCard';
 import routes from './routes';
@@ -38,7 +38,7 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
 			<Switch>
 				<Route exact path='/' render={() => <Home demoIndex={demoIndex} />} />
 				<Route
-					path='/gallery'
+					path='/galleries'
 					render={() => (
 						<GalleryCard
 							html={html}
