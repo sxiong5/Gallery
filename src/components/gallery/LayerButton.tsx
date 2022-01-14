@@ -58,7 +58,7 @@ ${resetAllBorderBox}
 .layer-btn__wrapper .layer-btn:hover .layer {
   transform: rotate(-35deg) skew(20deg);
 }
-.layer-btn__wrapper i {
+.layer-btn__wrapper .layer-btn:hover  i {
   opacity: calc(0.2 * (var(--i) + 1));
   transform: translate(calc(var(--i) * 5px), calc(var(--i) * -5px));
 }
