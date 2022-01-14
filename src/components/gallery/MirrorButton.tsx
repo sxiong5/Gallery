@@ -7,19 +7,12 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { GalleryChildrenProps } from '../../@types/gallery';
 import { formatCss, formatHtml } from '../../utils';
 import container from '../Container';
+import { flexCenter, resetAllBorderBox } from './common';
 
 const style = `
-* {
-  margin: 0;
-  padding: 0;
-  box-sizeing: border-box;
-}
+${resetAllBorderBox}
 .mirror-btn__container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
   background-color: #8EC5FC;
   background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 }

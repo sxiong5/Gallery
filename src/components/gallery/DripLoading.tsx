@@ -2,18 +2,12 @@ import React, { useEffect } from 'react';
 import { GalleryChildrenProps } from '../../@types/gallery';
 import { formatCss, formatHtml } from '../../utils';
 import container from '../Container';
+import { flexCenter, resetAll } from './common';
 
 const style = `
-* {
-  margin: 0;
-  padding: 0;
-}
+${resetAll}
 .drip-loading__container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
   background-color: #8BC6EC;
   background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 }
