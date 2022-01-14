@@ -1,21 +1,13 @@
-import { Box, styled } from '@mui/material';
 import React, { useEffect } from 'react';
 import { GalleryChildrenProps } from '../../@types/gallery';
 import { formatCss, formatHtml } from '../../utils';
 import container from '../Container';
+import { flexCenter, resetAll } from './common';
 
 const style = `
-* {
-  margin: 0;
-  padding: 0;
-}
+${resetAll}
 .colorful-btn__container {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
+  ${flexCenter}
   background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 .colorful-btn__container a {
