@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GalleryChildrenProps } from '../../@types/gallery';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -7,6 +7,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import container from '../Container';
 import { flexCenter, resetAllBorderBox } from './common';
+import { formatCss, formatHtml } from '../../utils';
 
 const style = `
 ${resetAllBorderBox}
@@ -77,6 +78,12 @@ const LayerButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classNam
 		{ text: 'GitHub', component: GitHubIcon },
 		{ text: 'Linkedin', component: LinkedInIcon }
 	];
+
+	useEffect(() => {
+		const html = document.getElementById('layer-btn')?.innerHTML.replace(/<svg[\s\S]+?<\/svg>/g, '<!-- Your icon -->');
+		setHtml(formatHtml(html!));
+		setCss(formatCss(style));
+	}, []);
 
 	return (
 		<Container className={`gallery-demo ${className ?? ''}`} id='layer-btn'>
