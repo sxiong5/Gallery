@@ -38,7 +38,7 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
 			<Switch>
 				<Route exact path='/' render={() => <Home demoIndex={demoIndex} />} />
 				<Route
-					path='/gallery'
+					path='/galleries'
 					render={() => (
 						<GalleryCard
 							html={html}
