@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createTheme, Theme, ThemeProvider } from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 
 const theme: Theme = createTheme({
 	palette: {
@@ -16,6 +16,8 @@ const theme: Theme = createTheme({
 		}
 	}
 });
+
+document.title = 'Gallery';
 
 ReactDOM.render(
 	<ThemeProvider theme={theme}>

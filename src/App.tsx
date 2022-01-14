@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Switch, Route, withRouter, RouteComponentProps, useLocation } from 'react-router-dom';
+import { Switch, Route, withRouter, RouteComponentProps, useLocation, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import GalleryCard from './components/layout/GalleryCard';
 import routes from './routes';

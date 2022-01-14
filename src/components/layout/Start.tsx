@@ -82,7 +82,7 @@ const Start: React.FC<StartProps> = ({ history, demoIndex }) => {
 					Click to Start
 				</StartButton>
 			</StarWrapper>
-			<Instruction variant='h5'>A Gallery from some intresting components</Instruction>
+			<Instruction variant='h5'>A Gallery for some intresting components</Instruction>
 		</>
 	);
 };
