@@ -8,7 +8,9 @@ import CodeIcon from '@mui/icons-material/Code';
 import CodeOffIcon from '@mui/icons-material/CodeOff';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CodePanel from './CodePanel';
+import Preview from './Preview';
 
 interface GalleryCardProps {
 	children: JSX.Element[] | JSX.Element;
@@ -45,6 +47,7 @@ const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisi
 	const [htmlCode, setHtmlCode] = useState<string>('');
 	const [cssCode, setCssCode] = useState<string>('');
 	const [btnColor, setBtnColor] = useState<string>(primary.contrastText);
+	const [showPreview, setShowPreview] = useState<boolean>(false);
 	const converter = new showdown.Converter({ extensions: [showdownHighlight({ pre: true })] });
 
 	useEffect(() => {
@@ -73,6 +76,16 @@ const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisi
 				<SwitchButtonWrapper sx={{ right: '3%', color: btnColor }} onClick={() => setIndex(1)}>
 					<ChevronRightIcon fontSize='large' />
 				</SwitchButtonWrapper>
+
+				{!showPreview && (
+					<IconButton
+						sx={{ color: '#fff', position: 'absolute', margin: 'auto', left: 0, right: 0, bottom: '5px' }}
+						onClick={() => setShowPreview(!showPreview)}
+					>
+						<ArrowDropUpIcon fontSize='large' />
+					</IconButton>
+				)}
+				<Preview className={showPreview ? 'show' : 'hide'} setShowPreview={setShowPreview} />
 			</Box>
 			<CSSTransition unmountOnExit in={codeVisible} timeout={500} classNames='slide-in'>
 				<CodePanel code={{ html: htmlCode, css: cssCode }} codeVisible={codeVisible} setCodeVisible={setCodeVisible} />
