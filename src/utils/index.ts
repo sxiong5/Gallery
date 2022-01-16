@@ -1,3 +1,5 @@
+import { flexCenter, resetAll, resetAllBorderBox } from '../components/gallery/common';
+
 export const formatHtml = (html: string): string => {
 	const arr = html.replaceAll('<', '\n<').split('\n');
 
@@ -33,6 +35,22 @@ const addTab = (num: number): string => {
 
 export const formatCss = (css: string): string => {
 	return `\`\`\`css${css}\`\`\``;
+};
+
+export const integrateStyle = (
+	borderBoxWhenReset: boolean,
+	container: string,
+	background: string,
+	styles: string
+): string => {
+	return `
+	${borderBoxWhenReset ? resetAllBorderBox : resetAll}
+	.${container} {
+		${flexCenter}
+		${toKebabCase(background)},
+	}
+	${styles}
+	`;
 };
 
 export const toKebabCase = (pascalCase: string) => {

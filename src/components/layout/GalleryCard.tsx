@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Box, IconButton, styled, Tooltip, useTheme } from '@mui/material';
+import { CSSTransition } from 'react-transition-group';
 import showdown from 'showdown';
-import 'highlight.js/styles/night-owl.css';
+import 'highlight.js/styles/nnfx-dark.css';
 import showdownHighlight from 'showdown-highlight';
 import CodeIcon from '@mui/icons-material/Code';
 import CodeOffIcon from '@mui/icons-material/CodeOff';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import CodePanel from './CodePanel';
 
 interface GalleryCardProps {
 	children: JSX.Element[] | JSX.Element;
@@ -17,39 +19,23 @@ interface GalleryCardProps {
 	setIndex: (type: 1 | -1) => void;
 }
 
-const GalleryCardWrapper = styled(Box)`
-	width: 100vw;
-	min-height: 100vh;
-`;
-
-const CodeContainer = styled(Box)`
-	color: #fff;
-	font-size: 1rem;
-`;
-
-const Code = styled(Box)`
-	& pre {
-		height: 40vh;
-		overflow-y: auto;
-	}
-	& .hljs {
-	}
-`;
-
-const CodeButtonWrapper = styled(IconButton)(({ theme }) => ({
-	position: 'fixed',
-	bottom: '30px',
-	right: '30px',
-	zIndex: theme.zIndex.tooltip,
-	transition: 'all 0.5s'
-}));
-
 const SwitchButtonWrapper = styled(IconButton)(({ theme }) => ({
-	position: 'fixed',
+	position: 'absolute',
 	top: '50%',
 	transform: 'translateY(-50%)',
 	zIndex: theme.zIndex.tooltip,
 	transition: 'all 0.5s'
+}));
+
+const CodeButtonWrapper = styled(IconButton)(({ theme }) => ({
+	position: 'absolute',
+	top: 0,
+	right: 0,
+	zIndex: theme.zIndex.tooltip,
+	transition: 'all 0.5s',
+	color: '#fff',
+	transform: 'translate(-100%, 0)',
+	margin: '15px'
 }));
 
 const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisible, setCodeVisible, setIndex }) => {
@@ -73,26 +59,25 @@ const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisi
 	}, [codeVisible]);
 
 	return (
-		<GalleryCardWrapper>
-			{children}
-			<SwitchButtonWrapper sx={{ left: '3%', color: btnColor }} onClick={() => setIndex(-1)}>
-				<ChevronLeftIcon fontSize='large' />
-			</SwitchButtonWrapper>
-			<SwitchButtonWrapper sx={{ right: '3%', color: btnColor }} onClick={() => setIndex(1)}>
-				<ChevronRightIcon fontSize='large' />
-			</SwitchButtonWrapper>
-			{codeVisible ? (
-				<CodeContainer className='code-container'>
-					<Code dangerouslySetInnerHTML={{ __html: htmlCode }}></Code>
-					<Code dangerouslySetInnerHTML={{ __html: cssCode }}></Code>
-				</CodeContainer>
-			) : null}
-			<Tooltip title='Code' placement='left'>
-				<CodeButtonWrapper onClick={() => setCodeVisible(!codeVisible)} sx={{ color: btnColor }}>
-					{codeVisible ? <CodeOffIcon /> : <CodeIcon />}
-				</CodeButtonWrapper>
-			</Tooltip>
-		</GalleryCardWrapper>
+		<Box sx={{ width: '100vw', height: '100vh', display: 'flex', '& > div': { flexGrow: 1 } }}>
+			<Box sx={{ position: 'relative' }}>
+				{children}
+				<Tooltip title='Code' placement='left'>
+					<CodeButtonWrapper onClick={() => setCodeVisible(!codeVisible)}>
+						{codeVisible ? <CodeOffIcon /> : <CodeIcon />}
+					</CodeButtonWrapper>
+				</Tooltip>
+				<SwitchButtonWrapper sx={{ left: '3%', color: btnColor }} onClick={() => setIndex(-1)}>
+					<ChevronLeftIcon fontSize='large' />
+				</SwitchButtonWrapper>
+				<SwitchButtonWrapper sx={{ right: '3%', color: btnColor }} onClick={() => setIndex(1)}>
+					<ChevronRightIcon fontSize='large' />
+				</SwitchButtonWrapper>
+			</Box>
+			<CSSTransition unmountOnExit in={codeVisible} timeout={500} classNames='slide-in'>
+				<CodePanel code={{ html: htmlCode, css: cssCode }} codeVisible={codeVisible} setCodeVisible={setCodeVisible} />
+			</CSSTransition>
+		</Box>
 	);
 };
 
