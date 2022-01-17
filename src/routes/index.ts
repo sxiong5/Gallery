@@ -1,5 +1,13 @@
 import { toKebabCase } from '../utils';
 
+const storage = {
+	gcs: 'https://storage.cloud.google.com/gallery_preview/',
+	oss: 'https://gallery-preview.oss-cn-shanghai.aliyuncs.com/'
+};
+
+const src = window.navigator.language === 'zh-CN' ? storage['oss'] : storage['gcs'];
+console.log(window.navigator.language);
+
 interface RouteConfig {
 	name: string;
 	route: string;
@@ -18,7 +26,7 @@ const routes: RouteConfig[] = Demos.keys().map(key => {
 		route: kebabCase,
 		path: `/galleries/${kebabCase}`,
 		component: Demos(key).default,
-		imgSrc: `https://storage.cloud.google.com/gallery_preview/${kebabCase}.png`
+		imgSrc: `${src}${kebabCase}.png`
 	};
 });
 

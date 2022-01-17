@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GalleryChildrenProps } from '../../@types/gallery';
 import SearchIcon from '@mui/icons-material/Search';
 import container from '../Container';
 import { flexCenter, resetAll } from './common';
-import { formatCss, formatHtml } from '../../utils';
+import { formatCss, formatHtml, toKebabCase } from '../../utils';
+import { useLocation, withRouter } from 'react-router-dom';
 
 const style = `
 ${resetAll}
@@ -44,7 +45,7 @@ ${resetAll}
   transition: 0.4s;
 }
 .dynamic-search:hover .search-text {
-  width: 200px;
+  width: 300px;
   padding: 0 6px;
 }
 .dynamic-search:hover .search-btn {
@@ -54,7 +55,10 @@ ${resetAll}
 
 const Container = container(style);
 
-const DynamicSearch: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
+const DynamicSearch: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className, history }) => {
+	const [state, setState] = useState<string>('initialState');
+	const location = useLocation();
+
 	useEffect(() => {
 		const html = document
 			.getElementById('dynamic-search')
@@ -63,12 +67,23 @@ const DynamicSearch: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classN
 		setCss(formatCss(style));
 	}, []);
 
+	const switchTo = () => {
+		// const route = `/galleries/${toKebabCase(state)}`;
+		// location.pathname !== route && history.push(route);
+		history.push(`/galleries/${toKebabCase(state)}`);
+	};
+
 	return (
 		<Container className={`gallery-demo ${className ?? ''}`} id='dynamic-search'>
 			<div className='dynamic-search__container'>
 				<div className='dynamic-search'>
-					<input type='text' className='search-text' placeholder='Type in' />
-					<span className='search-btn'>
+					<input
+						type='text'
+						className='search-text'
+						placeholder='Type in the component name'
+						onChange={e => setState(e.target.value)}
+					/>
+					<span className='search-btn' onClick={switchTo}>
 						<SearchIcon />
 					</span>
 				</div>
@@ -77,4 +92,4 @@ const DynamicSearch: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classN
 	);
 };
 
-export default DynamicSearch;
+export default withRouter(DynamicSearch);
