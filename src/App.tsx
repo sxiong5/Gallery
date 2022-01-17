@@ -13,7 +13,7 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
 	const [codeVisible, setCodeVisible] = useState<boolean>(false);
 	const [html, setHtml] = useState<string>('');
 	const [css, setCss] = useState<string>('');
-	const [animateClass, setAnimateClass] = useState('');
+	const [animateClass, setAnimateClass] = useState('to-left');
 	const [demoIndex, setDemoIndex] = useState<number>(0);
 	const location = useLocation();
 
@@ -46,6 +46,7 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
 							codeVisible={codeVisible}
 							setCodeVisible={setCodeVisible}
 							setIndex={setIndex}
+							setDemoIndex={setDemoIndex}
 						>
 							<TransitionGroup>
 								<CSSTransition key={location.pathname} timeout={1000} classNames={animateClass}>

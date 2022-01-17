@@ -19,6 +19,7 @@ interface GalleryCardProps {
 	codeVisible: boolean;
 	setCodeVisible: React.Dispatch<React.SetStateAction<boolean>>;
 	setIndex: (type: 1 | -1) => void;
+	setDemoIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const SwitchButtonWrapper = styled(IconButton)(({ theme }) => ({
@@ -40,7 +41,15 @@ const CodeButtonWrapper = styled(IconButton)(({ theme }) => ({
 	margin: '15px'
 }));
 
-const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisible, setCodeVisible, setIndex }) => {
+const GalleryCard: React.FC<GalleryCardProps> = ({
+	children,
+	html,
+	css,
+	codeVisible,
+	setCodeVisible,
+	setIndex,
+	setDemoIndex
+}) => {
 	const {
 		palette: { primary }
 	} = useTheme();
@@ -85,7 +94,11 @@ const GalleryCard: React.FC<GalleryCardProps> = ({ children, html, css, codeVisi
 						<ArrowDropUpIcon fontSize='large' />
 					</IconButton>
 				)}
-				<Preview className={showPreview ? 'show' : 'hide'} setShowPreview={setShowPreview} />
+				<Preview
+					className={showPreview ? 'show' : 'hide'}
+					setShowPreview={setShowPreview}
+					setDemoIndex={setDemoIndex}
+				/>
 			</Box>
 			<CSSTransition unmountOnExit in={codeVisible} timeout={500} classNames='slide-in'>
 				<CodePanel code={{ html: htmlCode, css: cssCode }} codeVisible={codeVisible} setCodeVisible={setCodeVisible} />

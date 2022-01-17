@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, styled, Tooltip } from '@mui/material';
+import { Box, styled, Tooltip, Typography } from '@mui/material';
 import routes from '../../routes';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-interface PreviewProps extends RouteComponentProps {
+interface PreviewProps {
 	className?: string;
 	setShowPreview: React.Dispatch<React.SetStateAction<boolean>>;
+	setDemoIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const PreviewWrapper = styled(Box)`
@@ -36,11 +36,11 @@ const Img = styled('img')`
 	}
 `;
 
-const Preview: React.FC<PreviewProps> = ({ className, setShowPreview, history }) => {
+const Preview: React.FC<PreviewProps> = ({ className, setShowPreview, setDemoIndex }) => {
 	return (
 		<PreviewWrapper className={className} onMouseLeave={() => setShowPreview(false)}>
-			{routes.map(item => (
-				<Tooltip key={item.name} title={item.name} placement='top' onClick={() => history.push(item.path)}>
+			{routes.map((item, index) => (
+				<Tooltip key={item.name} title={item.name} placement='top' onClick={() => setDemoIndex(index)}>
 					<Img src={item.imgSrc} loading='lazy' />
 				</Tooltip>
 			))}
@@ -48,4 +48,4 @@ const Preview: React.FC<PreviewProps> = ({ className, setShowPreview, history })
 	);
 };
 
-export default withRouter(Preview);
+export default Preview;
