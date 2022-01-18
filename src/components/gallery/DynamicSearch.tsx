@@ -92,6 +92,6 @@ const DynamicSearch: Gallery.FC<GalleryChildrenProps> = ({ setHtml, setCss, clas
 	);
 };
 
-DynamicSearch.updateTime = '01/17/2022';
+DynamicSearch.updateTime = '01/16/2022';
 
 export default withRouter(DynamicSearch);

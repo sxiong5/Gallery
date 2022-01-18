@@ -21,8 +21,9 @@ ${resetAllBorderBox}
   width: 200px;
   height: 60px;
   margin: 30px;
+  text-transform: uppercase;
 }
-.glare-btn__wrapper .glare-btn button {
+.glare-btn__wrapper .glare-btn a {
   position: absolute;
   top: 0;
   left: 0;
@@ -46,13 +47,11 @@ ${resetAllBorderBox}
   overflow: hidden;
   backdrop-filter: blur(15px);
   outline: none;
-  text-transform: uppercase;
-  cursor: pointer;
 }
-.glare-btn__wrapper .glare-btn:hover button {
+.glare-btn__wrapper .glare-btn:hover a {
   letter-spacing: 5px;
 }
-.glare-btn__wrapper .glare-btn button::before {
+.glare-btn__wrapper .glare-btn a::before {
   content: "";
   position: absolute;
   top: 0;
@@ -63,7 +62,7 @@ ${resetAllBorderBox}
   transform: skewX(45deg) translateX(0);
   transition: 0.5s;
 }
-.glare-btn__wrapper .glare-btn:hover button::before {
+.glare-btn__wrapper .glare-btn:hover a::before {
   transform: skewX(45deg) translateX(200%);
 }
 .glare-btn__wrapper .glare-btn::before,
@@ -121,7 +120,7 @@ const GlareButton: Gallery.FC<GalleryChildrenProps> = ({ setHtml, setCss, classN
 				<div className='glare-btn__wrapper'>
 					{colors.map(item => (
 						<div key={item} className='glare-btn' style={{ '--c': item } as React.CSSProperties}>
-							<button>Gallery</button>
+							<a href='#'>Gallery</a>
 						</div>
 					))}
 				</div>
