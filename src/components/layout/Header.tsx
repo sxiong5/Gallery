@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Badge, IconButton, ListItemText, Menu, MenuItem, styled } from '@mui/material';
+import { Badge, IconButton, ListItemText, Menu, MenuItem, Stack, styled, Link } from '@mui/material';
 import FiberNewIcon from '@mui/icons-material/FiberNew';
 import { RouteConfig } from '../../routes';
 import dayjs from 'dayjs';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 interface HeaderProps {
 	update: RouteConfig[];
@@ -38,11 +39,18 @@ const Header: React.FC<HeaderProps> = ({ update, setDemoIndex }) => {
 
 	return (
 		<HeaderWrapper>
-			<IconButton sx={{ color: '#fff' }} onClick={handleOpenNavMenu}>
-				<Badge badgeContent={list.length} color='primary'>
-					<FiberNewIcon />
-				</Badge>
-			</IconButton>
+			<Stack direction='row' alignItems='center' gap={2} sx={{ color: '#fff' }}>
+				<IconButton color='inherit' onClick={handleOpenNavMenu}>
+					<Badge badgeContent={list.length} color='primary'>
+						<FiberNewIcon />
+					</Badge>
+				</IconButton>
+				<Link color='inherit' href='https://github.com/sxiong5/Gallery'>
+					<IconButton color='inherit'>
+						<GitHubIcon />
+					</IconButton>
+				</Link>
+			</Stack>
 			<Menu anchorEl={anchorElNav} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}>
 				{list.map(item => (
 					<MenuItem key={item.name} onClick={() => setDemoIndex(item.index)}>
