@@ -26,7 +26,7 @@ const SwitchButtonWrapper = styled(IconButton)(({ theme }) => ({
 	position: 'absolute',
 	top: '50%',
 	transform: 'translateY(-50%)',
-	zIndex: theme.zIndex.tooltip,
+	zIndex: theme.zIndex.speedDial,
 	transition: 'all 0.5s'
 }));
 

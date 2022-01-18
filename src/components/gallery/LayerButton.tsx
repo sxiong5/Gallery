@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { GalleryChildrenProps } from '../../@types/gallery';
+import { Gallery, GalleryChildrenProps } from '../../@types/gallery';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -70,7 +70,7 @@ ${resetAllBorderBox}
 
 const Container = container(style);
 
-const LayerButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
+const LayerButton: Gallery.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
 	const icons = [
 		{ text: 'Twitter', component: TwitterIcon },
 		{ text: 'Facebook', component: FacebookIcon },
@@ -111,5 +111,7 @@ const LayerButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classNam
 		</Container>
 	);
 };
+
+LayerButton.updateTime = '01/14/2022';
 
 export default LayerButton;

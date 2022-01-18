@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GalleryChildrenProps } from '../../@types/gallery';
+import { Gallery, GalleryChildrenProps } from '../../@types/gallery';
 import SearchIcon from '@mui/icons-material/Search';
 import container from '../Container';
 import { flexCenter, resetAll } from './common';
@@ -55,7 +55,7 @@ ${resetAll}
 
 const Container = container(style);
 
-const DynamicSearch: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className, history }) => {
+const DynamicSearch: Gallery.FC<GalleryChildrenProps> = ({ setHtml, setCss, className, history }) => {
 	const [state, setState] = useState<string>('initialState');
 	const location = useLocation();
 
@@ -91,5 +91,7 @@ const DynamicSearch: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classN
 		</Container>
 	);
 };
+
+DynamicSearch.updateTime = '01/17/2022';
 
 export default withRouter(DynamicSearch);

@@ -6,9 +6,9 @@ const storage = {
 };
 
 const src = window.navigator.language === 'zh-CN' ? storage['oss'] : storage['gcs'];
-console.log(window.navigator.language);
 
-interface RouteConfig {
+export interface RouteConfig {
+	index: number;
 	name: string;
 	route: string;
 	path: string;
@@ -18,10 +18,11 @@ interface RouteConfig {
 
 const Demos = require.context('../components/gallery', false, /\.tsx$/);
 
-const routes: RouteConfig[] = Demos.keys().map(key => {
+const routes: RouteConfig[] = Demos.keys().map((key, index) => {
 	const name = (key.match(/^\.\/(\w+)\.tsx$/) as RegExpMatchArray)[1];
 	const kebabCase = toKebabCase(name);
 	return {
+		index,
 		name,
 		route: kebabCase,
 		path: `/galleries/${kebabCase}`,

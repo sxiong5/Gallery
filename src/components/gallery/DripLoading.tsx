@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { GalleryChildrenProps } from '../../@types/gallery';
+import { Gallery, GalleryChildrenProps } from '../../@types/gallery';
 import { formatCss, formatHtml } from '../../utils';
 import container from '../Container';
 import { flexCenter, resetAll } from './common';
@@ -53,7 +53,7 @@ svg {
 
 const Container = container(style);
 
-const DripLoading: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
+const DripLoading: Gallery.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
 	useEffect(() => {
 		const html = document.getElementById('drip-loading')?.innerHTML;
 		setHtml(formatHtml(html!));
@@ -87,5 +87,7 @@ const DripLoading: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classNam
 		</Container>
 	);
 };
+
+DripLoading.updateTime = '01/14/2022';
 
 export default DripLoading;

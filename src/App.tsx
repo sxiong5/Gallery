@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Switch, Route, withRouter, RouteComponentProps, useLocation, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import GalleryCard from './components/layout/GalleryCard';
-import routes from './routes';
+import routes, { RouteConfig } from './routes';
 import Home from './components/layout/Home';
+import Header from './components/layout/Header';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import duration from 'dayjs/plugin/duration';
+import dayjs from 'dayjs';
+dayjs.extend(customParseFormat);
+dayjs.extend(duration);
 
 export interface AppProps {
 	setIndex: (type: 1 | -1) => void;
@@ -15,6 +21,7 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
 	const [css, setCss] = useState<string>('');
 	const [animateClass, setAnimateClass] = useState('to-left');
 	const [demoIndex, setDemoIndex] = useState<number>(0);
+	const [updateList, setUpdateList] = useState<RouteConfig[]>([]);
 	const location = useLocation();
 
 	const setIndex = (type: 1 | -1) => {
@@ -33,8 +40,20 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
 		location.pathname !== '/' && history.push(routes[demoIndex].path);
 	}, [demoIndex]);
 
+	useEffect(() => {
+		const list = routes.filter(item => {
+			const { updateTime } = item.component;
+			const duration = dayjs.duration(dayjs().diff(dayjs(updateTime, 'MM/DD/YYYY')));
+
+			return duration.days() <= 7;
+		});
+
+		setUpdateList(list);
+	}, [routes]);
+
 	return (
 		<div className='App'>
+			<Header update={updateList} setDemoIndex={setDemoIndex} />
 			<Switch>
 				<Route exact path='/' render={() => <Home demoIndex={demoIndex} />} />
 				<Route

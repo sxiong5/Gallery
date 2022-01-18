@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { GalleryChildrenProps } from '../../@types/gallery';
+import { Gallery, GalleryChildrenProps } from '../../@types/gallery';
 import { formatCss, formatHtml } from '../../utils';
 import container from '../Container';
 import { flexCenter, resetAll } from './common';
@@ -62,7 +62,7 @@ ${resetAll}
 
 const Container = container(style);
 
-const ColorfulButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
+const ColorfulButton: Gallery.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
 	useEffect(() => {
 		const html = document.getElementById('colorful-btn')?.innerHTML;
 		setHtml(formatHtml(html!));
@@ -84,4 +84,5 @@ const ColorfulButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, class
 	);
 };
 
+ColorfulButton.updateTime = '01/15/2022';
 export default ColorfulButton;

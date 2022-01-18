@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { GalleryChildrenProps } from '../../@types/gallery';
+import { Gallery, GalleryChildrenProps } from '../../@types/gallery';
 import { formatHtml, formatCss } from '../../utils';
 import container from '../Container';
 import { flexCenter, resetAllBorderBox } from './common';
@@ -106,7 +106,7 @@ ${resetAllBorderBox}
 
 const Container = container(style);
 
-const GlareButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
+const GlareButton: Gallery.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
 	const colors = ['#12c2e9', '#c471ed', '#f64f59'];
 
 	useEffect(() => {
@@ -129,5 +129,7 @@ const GlareButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classNam
 		</Container>
 	);
 };
+
+GlareButton.updateTime = '01/17/2022';
 
 export default GlareButton;

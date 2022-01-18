@@ -4,7 +4,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { GalleryChildrenProps } from '../../@types/gallery';
+import { Gallery, GalleryChildrenProps } from '../../@types/gallery';
 import { formatCss, formatHtml } from '../../utils';
 import container from '../Container';
 import { flexCenter, resetAllBorderBox } from './common';
@@ -79,7 +79,7 @@ ${resetAllBorderBox}
 
 const Container = container(style);
 
-const MirrorButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
+const MirrorButton: Gallery.FC<GalleryChildrenProps> = ({ setHtml, setCss, className }) => {
 	const icons = [
 		<TwitterIcon fontSize='large' />,
 		<FacebookIcon fontSize='large' />,
@@ -108,5 +108,7 @@ const MirrorButton: React.FC<GalleryChildrenProps> = ({ setHtml, setCss, classNa
 		</Container>
 	);
 };
+
+MirrorButton.updateTime = '01/14/2022';
 
 export default MirrorButton;
